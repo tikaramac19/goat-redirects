@@ -27,14 +27,7 @@
 
             // Redirect to the constructed deep link
             if (token) {
-                if (type === "forget-password") {
-                    const redirectUrl = `${deepLinkBase}reset-password?token=${token}`;
-                    window.location.href = redirectUrl;
-
-                    return
-                }
-
-                const redirectUrl = `${deepLinkBase}verify?token=${token}`;
+                const redirectUrl = `${deepLinkBase}verify?token=${token}&type=${type}`;
                 window.location.href = redirectUrl; // Redirect to the deep link
             } else {
                 // Handle the case where there is no token
