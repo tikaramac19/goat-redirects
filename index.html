@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirect Page</title>
+    <script>
+        // Function to get query parameters from the URL
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                token: params.get("token"), // Get the 'token' parameter
+                type: params.get('type')
+                // You can add more parameters as needed
+            };
+        }
+
+        // Function to redirect
+        function redirectToDeepLink() {
+            const params = getQueryParams();
+            const token = params.token; // Extract token
+            const type = params.type
+
+            // Specify the deep link to redirect to
+            const deepLinkBase = "goattracker://";
+
+            // Redirect to the constructed deep link
+            if (token) {
+                if (type === "forget-password") {
+                    const redirectUrl = `${deepLinkBase}reset-password?token=${token}`;
+                    window.location.href = redirectUrl;
+
+                    return
+                }
+
+                const redirectUrl = `${deepLinkBase}verify?token=${token}`;
+                window.location.href = redirectUrl; // Redirect to the deep link
+            } else {
+                // Handle the case where there is no token
+                document.body.innerHTML = "<h1>Error: No token provided!</h1>";
+            }
+        }
+
+        // Call redirect function when the page loads
+        window.onload = redirectToDeepLink;
+    </script>
+</head>
+
+<body>
+    <h1>Redirecting...</h1>
+    <p>
+        If you are not redirected,
+        <a href="#" onclick="redirectToDeepLink()">click here</a>.
+    </p>
+</body>
+
+</html>
