@@ -29,6 +29,7 @@
             if (token) {
                 const redirectUrl = `${deepLinkBase}verify?token=${token}&type=${type}`;
                 window.location.href = redirectUrl; // Redirect to the deep link
+                alert(`redirect url: ${redirectUrl}`)
             } else {
                 // Handle the case where there is no token
                 document.body.innerHTML = "<h1>Error: No token provided!</h1>";
